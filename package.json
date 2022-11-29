@@ -1,0 +1,41 @@
+{
+  "name": "pokeapiwdd330",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "lint": "eslint *.js src/**/*.js",
+    "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dosmaster4life/pokeapiwdd330.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dosmaster4life/pokeapiwdd330/issues"
+  },
+  "homepage": "https://github.com/Dosmaster4life/pokeapiwdd330#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@snowpack/plugin-sass": "^1.1.2",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2",
+    "snowpack": "^2.18.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}
