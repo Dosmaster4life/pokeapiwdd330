@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- HTML Template to build pokemon card -->
+    <template id="pokemon-card-template">
+      <li class="pokemon-card">
+        <a href="../poke-details/poke-details.html?pokemon=">
+        <img
+          src=""
+          alt="Image of "
+        />
+        <h2 class="pokemon__name"></h2>
+        <h3 class="pokemon_type"></h3>
+        <p class="pokemon_region"></p></a>
+      </li>
+    </template>
+     <script src="" type="module"></script>
+  </head>
+  <body>
+    <header class="divider" id="main-header">
+      <!-- Fill header content from partials/header.html -->
+    </header>
+    <main class="divider">
+      <section class="pokemon">
+        <h2>Top Pokemon: <span class = "search-query"></span></h2>
+        <ul class="pokemon-list">
+          <!-- pokemon go here -->
+        </ul>
+      </section>
+    </main>
+    <footer id="main-footer">
+      <!-- Fill footer content from partials/footer.html -->
+    </footer>
+  </body>
+</html>
