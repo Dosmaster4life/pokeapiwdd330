@@ -3,4 +3,5 @@ import {gridView} from './gridView.js';
 const grid = new gridView();
 // next page button or previous page button in html render
 
-grid.render(0, 898); 
+grid.render('kanto'); 
+

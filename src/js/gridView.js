@@ -12,6 +12,7 @@ export default class gridView {
         this.offset = offset;
         this.data;
         this.maxCard = 898;
+        this.setRegion = false;
         
     }
     // render should pass in the constructors from using an api call from the pokemon api
@@ -20,6 +21,38 @@ export default class gridView {
         return `<div class="grid-view">
         ${this.cards.map(card => card.render()).join('')}
     </div>`
+    }
+    setKanto() {
+        this.offset = 0;
+        this.maxCard = 151;
+    }
+    setJohto() {
+        this.offset = 151;
+        this.maxCard = 251;
+    }
+    setHoenn() {
+        this.offset = 251;
+        this.maxCard = 386;
+    }
+    setSinnoh() {
+        this.offset = 386;
+        this.maxCard = 493;
+    }
+    setUnova() {
+        this.offset = 493;
+        this.maxCard = 649;
+    }
+    setKalos() {
+        this.offset = 649;
+        this.maxCard = 721;
+    }
+    setAlola() {
+        this.offset = 721;
+        this.maxCard = 809;
+    }
+    setGalar() {
+        this.offset = 809;
+        this.maxCard = 898;
     }
 
     getAllPokemon() {
@@ -59,14 +92,42 @@ export default class gridView {
             
         }    
     }
-    render(newOffset = 0, cardMax = 0) {
-     if(newOffset != 0) {
-            this.offset = newOffset;
-     }
-        if(cardMax != 0) {
-            this.maxCard = cardMax;
+    render(region = 'all') {
+        if(!this.setRegion) {
+        switch(region) {
+            case 'kanto':
+                this.setKanto();
+                break;
+            case 'johto':
+                this.setJohto();
+                break;
+            case 'hoenn':
+                this.setHoenn();
+                break;
+            case 'sinnoh':
+                this.setSinnoh();
+                break;
+            case 'unova':
+                this.setUnova();
+                break;
+            case 'kalos':
+                this.setKalos();
+                break;
+            case 'alola':
+                this.setAlola();
+                break;
+            case 'galar':
+                this.setGalar();
+                break;
+            case 'all':
+                this.offset = 0;
+                this.maxCard = 898;
+                break;
         }
-     
+        this.setRegion = true;
+    }
+
+
     
        
         if(this.data === undefined) {
