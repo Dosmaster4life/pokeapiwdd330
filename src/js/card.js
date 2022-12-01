@@ -6,7 +6,7 @@ export default class Card {
         this.title = title;
         this.id = id;
     }
-    // style a line around the card
+    
      render() {
 
         return `

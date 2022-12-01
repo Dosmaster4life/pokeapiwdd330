@@ -5,52 +5,104 @@
 import { getAllPokemon } from "./pokeapiService/apiService";
 import {Card} from './card.js';
 
-class gridView {
+export default class gridView {
         // get the pokemon names and images from the api call
     constructor(offset = 0) {
         this.cards = [];
         this.offset = offset;
+        this.data;
+        this.maxCard = 898;
+        
     }
     // render should pass in the constructors from using an api call from the pokemon api
     createCard() {
+        
         return `<div class="grid-view">
         ${this.cards.map(card => card.render()).join('')}
     </div>`
     }
-    render() {
-       
-        // get the pokemon names and images from the api call
+
+    getAllPokemon() {
         getAllPokemon().then((data) => {
-        
-            let pokemonNames = data;
-            for(let i = 0; i < 25; i++) 
-            {
-                // extract id from data.results[i].url
+            this.data = data;
+            this.render();
+        })
+    }
+    getCards() {
+        let pokemonNames = this.data;
+       
+        for(let i = this.offset; i < 25 + this.offset; i++) 
+        {
+            if(i + 1  > this.maxCard) {
+                break;
+            }
+            // extract id from data.results[i].url
+            try {
                 let id = pokemonNames[i].url.split('/')[6];
-            
+        
                 // get the pokemon image from the api call
                 
                     // create a new card with the pokemon image and name, raw string of "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/id.png"
                     let card = new Card(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`, pokemonNames[i].name,id);
                    // let card = new Card(, pokemonNames[i].name);
-
+    
                     // add the card to the grid view, this.cards.push is causing an error
                     this.cards.push(card);
-
+    
                     // render the grid view
                     document.getElementById('grid-view').innerHTML = this.createCard();
-                   
-                
+            }catch(e) {
+
             }
+           
+               
+            
+        }    
+    }
+    render(newOffset = 0, cardMax = 0) {
+     if(newOffset != 0) {
+            this.offset = newOffset;
+     }
+        if(cardMax != 0) {
+            this.maxCard = cardMax;
+        }
+     
+    
+       
+        if(this.data === undefined) {
+            this.getAllPokemon();
+            
+        }else {
+            this.getCards();
+        }
+        window.addEventListener('scroll', () => {
+                
+            // get the scroll position
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            // if the scroll position is at the bottom of the page, load more cards
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight & this.offset - 25 < this.maxCard) {
+                this.offset += 25;
+                this.render();
+                // you're at the bottom of the page
+            }
+          
+        });
+        
+       
+
+        
+       
+        // get the pokemon names and images from the api call
+    
+    
+           
+            // on scroll event, load more cards
+            
+            
+
 
        
-    })
+    
 }
-}
+}export {gridView};
 
-const grid = new gridView();
-// next page button or previous page button in html render
-
-
-
-grid.render(25);
