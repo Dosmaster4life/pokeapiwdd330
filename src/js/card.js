@@ -8,16 +8,15 @@ export default class Card {
     }
     
      render() {
+       
 
         return `
-        <div class="card">
+        <div class="card" style="cursor: pointer;" onclick="console.log('This will navigate to pokemon page with id in the future')">
         <h5>#${this.id} ${this.title}</h5>
             <img src="${this.image}" alt="${this.title}" />
-          
             
         </div>
 
-    
        `
 
     }
