@@ -46,6 +46,6 @@ export async function loadHeaderFooter () {
     const headerElement = document.getElementById('main-header');
     const footerElement = document.getElementById('main-footer');
     renderWithTemplate(header, headerElement);
-    getCartCount();
+    // getCartCount(); I get an error with this line
     renderWithTemplate(footer, footerElement);
 }
