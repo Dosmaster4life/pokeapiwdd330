@@ -7,10 +7,9 @@ export default class PokeDetails {
         this.species;
     }
     
-    init() {
-        this.getPokemonSpecies();
+    async init() {
         this.getPokemonDetails();
-        document.querySelector('main').innerHTML = this.renderPokemonDetails();
+        this.getPokemonSpecies();
     }
     
     getPokemonDetails () {
@@ -27,6 +26,8 @@ export default class PokeDetails {
             this.species = species;
             console.log(this.species);
             console.log(this.species.flavor_text_entries)
+        }).finally(() => {
+            document.querySelector('main').innerHTML = this.renderPokemonDetails();
         })
     }
 
@@ -34,7 +35,7 @@ export default class PokeDetails {
     renderPokemonDetails() {
         // const flavor_text_entries = this.species.flavor_text_entries;
         // console.log(flavor_text_entries);
-        const flavor_text = this.species.flavor_text_entries;
+        const flavor_text = this.species.flavor_text_entries[0].flavor_text;
         // const htmlEntry = flavor_text.replace(u'\f',       u'\n')
         //     .replace(u'\u00ad\n', u'')
         //     .replace(u'\u00ad',   u'')
@@ -48,7 +49,7 @@ export default class PokeDetails {
                 <p class="poke-card__type">${this.pokemon.types[0].type.name}</p>
             </div>
             <div class="poke-card__image">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}" alt="Image of <span class="poke-card__name">${this.pokemon.name}</span> />
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
             </div>
             <div class="poke-card__info">
                 <p class="poke-card__entry">${flavor_text}</p>
