@@ -7,9 +7,9 @@ export default class PokeDetails {
         this.species;
     }
     
-    async init() {
-        this.getPokemonDetails();
+    init() {
         this.getPokemonSpecies();
+        this.getPokemonDetails();
         document.querySelector('main').innerHTML = this.renderPokemonDetails();
     }
     
@@ -26,6 +26,7 @@ export default class PokeDetails {
         getSpecies(this.pokemonId).then((species) => {
             this.species = species;
             console.log(this.species);
+            console.log(this.species.flavor_text_entries)
         })
     }
 
@@ -33,7 +34,7 @@ export default class PokeDetails {
     renderPokemonDetails() {
         // const flavor_text_entries = this.species.flavor_text_entries;
         // console.log(flavor_text_entries);
-        const flavor_text = this.species.flavor_text_entries[0].flavor_text;
+        const flavor_text = this.species.flavor_text_entries;
         // const htmlEntry = flavor_text.replace(u'\f',       u'\n')
         //     .replace(u'\u00ad\n', u'')
         //     .replace(u'\u00ad',   u'')
