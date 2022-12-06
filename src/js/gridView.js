@@ -94,6 +94,7 @@ export default class gridView {
                
             
         }    
+        
     }
     render(region = 'all') {
         if(!this.setRegion) {
@@ -139,18 +140,21 @@ export default class gridView {
         }else {
             this.getCards();
         }
+      
         window.addEventListener('scroll', () => {
+        
                 
             // get the scroll position
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
             // if the scroll position is at the bottom of the page, load more cards
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight & this.offset - 25 < this.maxCard) {
+            if (clientHeight + scrollTop >= scrollHeight - 5) {
                 this.offset += 25;
-                this.render();
-                // you're at the bottom of the page
+                this.getCards();
             }
           
+          
         });
+    
         
        
 
