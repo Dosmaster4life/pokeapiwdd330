@@ -2,6 +2,7 @@
 
 import {getAllPokemon} from './pokeapiService/apiService.js';
 import {getPokemon} from './pokeapiService/apiService.js';
+import {getSpecies} from './pokeapiService/apiService.js';
 import { loadHeaderFooter } from './utils.js';
 loadHeaderFooter();
 
@@ -15,3 +16,8 @@ console.log(pokemonList);
  getPokemon('pikachu').then((pokemonStats) => {
      console.log(pokemonStats);
  });
+
+//get a pokemons species data
+getSpecies('25').then((pokemonStats) => {
+    console.log(pokemonStats);
+});

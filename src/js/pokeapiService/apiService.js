@@ -9,6 +9,14 @@ export const getPokemon = (pokemon) => {
         return data;
         });
     }
+    
+export const getSpecies = (pokemon) => {
+    return fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
+        .then((response) => response.json())
+        .then((data) => {
+        return data;
+        });
+    }
 
 export const getKantoPokemonList = () => {
     return fetch('https://pokeapi.co/api/v2/pokemon?limit=151')

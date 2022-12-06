@@ -74,9 +74,12 @@ export default class gridView {
                 let id = pokemonNames[i].url.split('/')[6];
         
                 // get the pokemon image from the api call
+
+                // create link to pokemon page using id
+                let link = `../pokemon/index.html?id=${id}`;
                 
                     // create a new card with the pokemon image and name, raw string of "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/id.png"
-                    let card = new Card(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`, pokemonNames[i].name,id);
+                    let card = new Card(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`, pokemonNames[i].name,id,link);
                    // let card = new Card(, pokemonNames[i].name);
     
                     // add the card to the grid view, this.cards.push is causing an error
