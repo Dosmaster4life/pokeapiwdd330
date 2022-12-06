@@ -8,10 +8,25 @@ export default class PokeDetails {
     }
     
     async init() {
+        // this.getPokemonData();
         this.getPokemonDetails();
         this.getPokemonSpecies();
     }
     
+    getPokemonData() {
+    // get Pokemon details then get Pokemon species then get pokemon type then render the page
+        this.getPokemonDetails()
+            .then(() => {
+                this.getPokemonSpecies()
+            })
+            // .then(() => {
+            //     this.getPokemonType()
+            // })
+            .finally(() => {
+                document.querySelector('main').innerHTML = this.renderPokemonDetails();
+            })
+    }
+
     getPokemonDetails () {
         return getPokemon(this.pokemonId)
             .then((pokemon) => {
@@ -26,35 +41,88 @@ export default class PokeDetails {
             this.species = species;
             console.log(this.species);
             console.log(this.species.flavor_text_entries)
-        }).finally(() => {
+        })
+        .finally(() => {
             document.querySelector('main').innerHTML = this.renderPokemonDetails();
         })
     }
 
+    getPokemonType () {
+        let type = '';
+        if (this.pokemon.types[0].type.name === 'grass') {
+            type = 'Grass';
+        } if (this.pokemon.types[0].type.name === 'normal') {
+            type = 'Normal';
+        } if (this.pokemon.types[0].type.name === 'fire') {
+            type = 'Fire';
+        } if (this.pokemon.types[0].type.name === 'water') {
+            type = 'Water';
+        } if (this.pokemon.types[0].type.name === 'electric') {
+            type = 'Electric';
+        } if (this.pokemon.types[0].type.name === 'ice') {
+            type = 'Ice';
+        } if (this.pokemon.types[0].type.name === 'fighting') {
+            type = 'Fighting';
+        } if (this.pokemon.types[0].type.name === 'poison') {
+            type = 'Poison';
+        } if (this.pokemon.types[0].type.name === 'ground') {
+            type = 'Ground';
+        } if (this.pokemon.types[0].type.name === 'flying') {
+            type = 'Flying';
+        } if (this.pokemon.types[0].type.name === 'psychic') {
+            type = 'Psychic';
+        } if (this.pokemon.types[0].type.name === 'bug') {
+            type = 'Bug';
+        } if (this.pokemon.types[0].type.name === 'rock') {
+            type = 'Rock';
+        } if (this.pokemon.types[0].type.name === 'ghost') {
+            type = 'Ghost';
+        } if (this.pokemon.types[0].type.name === 'dragon') {
+            type = 'Dragon';
+        } if (this.pokemon.types[0].type.name === 'dark') {
+            type = 'Dark';
+        } if (this.pokemon.types[0].type.name === 'steel') {
+            type = 'Steel';
+        } if (this.pokemon.types[0].type.name === 'fairy') {
+            type = 'Fairy';
+        } if (this.pokemon.types[0].type.name === 'ground') {
+            type = 'Ground';
+        }
+        return type;   
+    }
 
     renderPokemonDetails() {
         // const flavor_text_entries = this.species.flavor_text_entries;
         // console.log(flavor_text_entries);
-        const flavor_text = this.species.flavor_text_entries[0].flavor_text;
-        // const htmlEntry = flavor_text.replace(u'\f',       u'\n')
-        //     .replace(u'\u00ad\n', u'')
-        //     .replace(u'\u00ad',   u'')
-        //     .replace(u' -\n',     u' - ')
-        //     .replace(u'-\n',      u'-') 
-        //     .replace(u'\n',       u' ') 
+        const type = this.getPokemonType();
+        //get english flavor text
+        const flavor_text_entries = this.species.flavor_text_entries.filter((entry) => {
+            return entry.language.name === 'en';
+        });
+        const flavor_text = flavor_text_entries[0].flavor_text;
+
+        //const flavor_text = this.species.flavor_text_entries[0].flavor_text;
+        console.log(this.species.flavor_text_entries);
+        const height = (this.pokemon.height * 3.93701).toFixed(2);
+        const weight = (this.pokemon.weight * 0.220462).toFixed(2);
+        
         return `<section class="poke-card">
             <div class="poke-card__title">
-                <h2 class="poke-card__name">${this.pokemon.name}</h2>
-                <p class="poke-card__id">${this.pokemon.id}</p>
-                <p class="poke-card__type">${this.pokemon.types[0].type.name}</p>
+                <h2 class="poke-card__name">${this.pokemon.name} <span class="poke-card__id">#${this.pokemon.id}</span></h2>
+                <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">
             </div>
-            <div class="poke-card__image">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
+            <div class="poke-card__image_container">
+                <img class="poke-card__image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
+            </div>
+            <div class="poke-card__stats">
+                <p class="poke-card__height">Height: ${height} inches</p>
+                <p class="poke-card__weight">Weight: ${weight} pounds</p>
+                <p class="poke-card__ability">Ability: ${this.pokemon.abilities[0].ability.name}</p>
             </div>
             <div class="poke-card__info">
                 <p class="poke-card__entry">${flavor_text}</p>
                 <ul class="poke-card__moves">
-                    <!-- <li class="poke-card__move">${this.pokemon.moves[0].move.name}</li> -->
+                    <li class="poke-card__move">${this.pokemon.moves[0].move.name}</li>
                 </ul>
             </div>
         </section>`
