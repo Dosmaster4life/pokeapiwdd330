@@ -128,13 +128,14 @@ body {
     margin: 0 auto;
     max-width: 1200px;
     padding: 20px;
+    justify-items: center;
 }
 header {
-    width: 100%;
+    /* width: 100%; */
     padding: 0;
-    /* position: fixed;
+    /* position: fixed; */
     top: 0;
-    left: 0; */
+    left: 0;
     background: #fff;
 }
 /* Logo */
@@ -164,14 +165,28 @@ header {
     padding: 10px;
 }
 /* Menu-navbar */
+/* First Icon */
+nav > ul > li:first-child > a {
+    background-image: url(../images/pokeball.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 20px 40px;
+}
+nav > ul > li:first-child:hover > a {
+    background-image: url(../images/pokeball.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 .container__menu {
-    width: 100%;
+    /* width: 100%; */
     height: 70px;
     background: #3c5aa6;
     padding: 0px 20px;
 }
 .menu {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: auto;
     height: 100%;
 }
@@ -280,6 +295,7 @@ nav ul li ul li a:hover {
         width: 100px;
     }
     .search input{
+        transition: all 0.5 ease;
         width: auto;
     }
     nav > ul {
@@ -287,7 +303,7 @@ nav ul li ul li a:hover {
         background-color: #3c5aa6;
         position: fixed;
         left: 0;
-        top: 158px;
+        /* top: 158px; */
         width: 100%;
         height: 0;
         transition: all 300ms ease;
@@ -299,7 +315,7 @@ nav ul li ul li a:hover {
         transform: scale(1);
     }
     nav ul li ul {
-        left: 90px;
+        left: 100px;
     }
     nav > ul > li:hover > ul {
         top: 50px;
@@ -311,12 +327,33 @@ nav ul li ul li a:hover {
         display: flex !important;
     }
     #check__menu:checked ~ nav > ul {
-        height: 100px;
+        height: 180px;
         visibility: visible;
         opacity: 1;
     }
 
+}
+@media screen and (max-width: 800px) {
+    .search input {
+        width: auto;
+        transition: all 0.5 ease;
+    }
+}
 
-
+/* Footer */
+footer a:visited {
+    color: #fff;
+}
+footer {
+    text-align: center;
+}
+.footer__1 {
+    max-width: 1200px;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    color: #fff;
+    background-color: #3c5aa6;
 
 }
