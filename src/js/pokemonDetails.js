@@ -91,6 +91,17 @@ export default class PokeDetails {
         return type;   
     }
 
+    getFirstMoves() {
+        const moves = this.pokemon.moves;
+        const firstMoves = moves.slice(0, 5);
+        let movesList = '';
+        firstMoves.forEach((move) => {
+            move = move.move.name;
+            movesList += `<li>${move}</li>`;
+        });
+        return movesList;
+    }
+
     renderPokemonDetails() {
         // const flavor_text_entries = this.species.flavor_text_entries;
         // console.log(flavor_text_entries);
@@ -110,10 +121,13 @@ export default class PokeDetails {
         console.log(genus);
         const height = (this.pokemon.height * 3.93701).toFixed(2);
         const weight = (this.pokemon.weight * 0.220462).toFixed(2);
+
+        const firstMoves = this.getFirstMoves();
+
         
         return `<section class="poke-card">
             <div class="poke-card__title">
-                <h2 class="poke-card__name">${this.pokemon.name}</h2>
+                <h1 class="poke-card__name">${this.pokemon.name}</h1>
                 <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">
             </div>
             <div class="poke-card__image_container">
@@ -132,8 +146,13 @@ export default class PokeDetails {
             </div>
             <div class="poke-card__info">
                 <p class="poke-card__entry">${flavor_text}</p>
+                <h3 class="poke-card__moves_title">Moves:</h3>
                 <ul class="poke-card__moves">
-                    <li class="poke-card__move">${this.pokemon.moves[0].move.name}</li>
+                    ${firstMoves}
+                </ul>
+                <button class="poke-card__moves_expand">See More</button>
+                <ul class="poke-card__moves_expand_list">
+                    <!-- expanded moves list -->
                 </ul>
             </div>
         </section>`

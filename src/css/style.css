@@ -30,6 +30,9 @@ body {
 }
 .poke-card__name {
     text-transform: capitalize;
+    font-size: 30px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
 }
 .poke-card__type {
     margin: 5px;
@@ -90,11 +93,17 @@ body {
     background-color: none;
 
 }
-
-
 .poke-card__ability {
     text-transform: capitalize;
     padding-right: 40px;
+}
+
+.poke-card__moves {
+    margin-left: 20px;
+}
+.poke-card__moves li {
+    text-transform: capitalize;
+    list-style-type: none;
 }
 
 
