@@ -1,12 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Telex&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     text-decoration: none;
+    font-family: 'Telex', sans-serif;
 }
 body {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+/* Pokemon Detail Card */
+.poke-card {
+    max-width: 70%;
+    margin: 20px auto;
+    background-color: #fee151;
+    border-radius: 20px;
+}
+.poke-card div {
+    max-width: 90%;
+    margin: 0 auto;
+}
+.poke-card__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px
+}
+.poke-card__name {
+    text-transform: capitalize;
+    font-size: 30px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+}
+.poke-card__type {
+    margin: 5px;
+    max-width: 40px;
+}
+.poke-card__image_container {
+    max-width: 80%;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+.poke-card__image {
+    max-width: 100%;
+    margin: 10px auto;
+}
+.poke-card__stats_container {
+    /* padding: 10px 5px 5px 5px; */
+    /* background-color: #CFCFCF; */
+    display: flex;
+    align-items: left;
+    max-width: 95%;
+    
+}
+.poke-card__stats_container div {
     margin: 0;
 }
+.poke-card__stats {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: #DFDFDF;
+    border-radius: 0 0 10px 10px;
+    padding: 5px 0 5px 10px;
+    position: relative;
+    font-size: 14px;
+    
+    width: 100%;
+}
+.poke-card__stats:before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-bottom-left-radius: 50%;
+    /* background-color: #CFCFCF; */
+    box-shadow: 0 20px 0 0 #DFDFDF;
+}
+
+.poke-card__stats p {
+    margin: 0 0 0 15px;
+}
+.poke-card__stats_alignment {
+    width: 50px;
+    background-color: none;
+
+}
+.poke-card__ability {
+    text-transform: capitalize;
+    padding-right: 40px;
+}
+
+.poke-card__moves {
+    margin-left: 20px;
+}
+.poke-card__moves li {
+    text-transform: capitalize;
+    list-style-type: none;
+}
+
+
 
 /*width of card should only fit around content*/
 .card {
@@ -231,6 +331,7 @@ nav ul li ul li a:hover {
         visibility: visible;
         opacity: 1;
     }
+
 }
 @media screen and (max-width: 800px) {
     .search input {
@@ -254,4 +355,5 @@ footer {
     padding: 20px;
     color: #fff;
     background-color: #3c5aa6;
+
 }
