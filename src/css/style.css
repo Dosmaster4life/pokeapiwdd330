@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Telex&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     text-decoration: none;
+    font-family: 'Telex', sans-serif;
 }
 body {
     margin: 0 auto;
@@ -22,6 +25,7 @@ body {
 .poke-card__title {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px
 }
 .poke-card__name {
@@ -43,9 +47,54 @@ body {
     max-width: 100%;
     margin: 10px auto;
 }
+.poke-card__stats_container {
+    /* padding: 10px 5px 5px 5px; */
+    /* background-color: #CFCFCF; */
+    display: flex;
+    align-items: left;
+    max-width: 95%;
+    
+}
+.poke-card__stats_container div {
+    margin: 0;
+}
+.poke-card__stats {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: #DFDFDF;
+    border-radius: 0 0 10px 10px;
+    padding: 5px 0 5px 10px;
+    position: relative;
+    font-size: 14px;
+    
+    width: 100%;
+}
+.poke-card__stats:before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-bottom-left-radius: 50%;
+    /* background-color: #CFCFCF; */
+    box-shadow: 0 20px 0 0 #DFDFDF;
+}
+
+.poke-card__stats p {
+    margin: 0 0 0 15px;
+}
+.poke-card__stats_alignment {
+    width: 50px;
+    background-color: none;
+
+}
+
 
 .poke-card__ability {
     text-transform: capitalize;
+    padding-right: 40px;
 }
 
 

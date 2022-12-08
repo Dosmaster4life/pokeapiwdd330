@@ -103,21 +103,32 @@ export default class PokeDetails {
 
         //const flavor_text = this.species.flavor_text_entries[0].flavor_text;
         console.log(this.species.flavor_text_entries);
+        const genera = this.species.genera.filter((entry) => {
+            return entry.language.name === 'en';
+        });
+        const genus = genera[0].genus;
+        console.log(genus);
         const height = (this.pokemon.height * 3.93701).toFixed(2);
         const weight = (this.pokemon.weight * 0.220462).toFixed(2);
         
         return `<section class="poke-card">
             <div class="poke-card__title">
-                <h2 class="poke-card__name">${this.pokemon.name} <span class="poke-card__id">#${this.pokemon.id}</span></h2>
+                <h2 class="poke-card__name">${this.pokemon.name}</h2>
                 <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">
             </div>
             <div class="poke-card__image_container">
                 <img class="poke-card__image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
             </div>
-            <div class="poke-card__stats">
-                <p class="poke-card__height">Height: ${height} inches</p>
-                <p class="poke-card__weight">Weight: ${weight} pounds</p>
-                <p class="poke-card__ability">Ability: ${this.pokemon.abilities[0].ability.name}</p>
+            <div class="poke-card__stats_container">
+                <div class="poke-card__stats">
+                    <p class="poke-card__id">NO. ${this.pokemonId}</p>
+                    <p class="poke-card__genus">${genus}</p>
+                    <p class="poke-card__height">HT: ${height} in</p>
+                    <p class="poke-card__weight">WT: ${weight} lbs</p>
+                    <p class="poke-card__ability">Ability: ${this.pokemon.abilities[0].ability.name}</p>
+                </div>
+                <div class="poke-card__stats_alignment">
+                </div>
             </div>
             <div class="poke-card__info">
                 <p class="poke-card__entry">${flavor_text}</p>
