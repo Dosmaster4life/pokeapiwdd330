@@ -153,6 +153,9 @@ export default class PokeDetails {
         const weight = (this.pokemon.weight * 0.220462).toFixed(2);
 
         const firstMoves = this.getFirstMoves();
+        // get numberic id of pokemon from api url
+        const id = this.pokemon.id
+
         
         console.log(this.evolution);
                
@@ -163,11 +166,11 @@ export default class PokeDetails {
                 <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">   
             </div>
             <div class="poke-card__image_container">
-                <img class="poke-card__image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
+                <img class="poke-card__image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" alt="Image of ${this.pokemon.name}">
             </div>
             <div class="poke-card__stats_container">
                 <div class="poke-card__stats">
-                    <p class="poke-card__id">NO. ${this.pokemonId}</p>
+                    <p class="poke-card__id">NO. ${this.pokemon.id}</p>
                     <p class="poke-card__genus">${genus}</p>
                     <p class="poke-card__height">HT: ${height} in</p>
                     <p class="poke-card__weight">WT: ${weight} lbs</p>
