@@ -11,6 +11,13 @@ body {
     margin: 0 auto;
     max-width: 1200px;
 }
+a h5 {
+    text-align: center;
+    text-transform: capitalize;
+}
+main a {
+    color: #3c5aa6;
+}
 /* Pokemon Detail Card */
 .poke-card {
     max-width: 70%;
