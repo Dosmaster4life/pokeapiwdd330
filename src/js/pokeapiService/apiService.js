@@ -17,7 +17,17 @@ export const getSpecies = (pokemon) => {
         return data;
         });
     }
-// get all the pokemon from the hoenn region
+
+
+export const getEvolutionChain = (evolutionChain) => {
+    return fetch(`${evolutionChain}`)
+        .then((response) => response.json())
+        .then((data) => {
+        return data;
+        });
+    }
+
+
 export const getKantoPokemonList = () => {
     return fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
         .then((response) => response.json())
