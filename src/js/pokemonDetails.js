@@ -1,39 +1,48 @@
-import {getPokemon, getSpecies} from './pokeapiService/apiService.js';
+import {getPokemon, getSpecies, getEvolutionChain} from './pokeapiService/apiService.js';
 
 export default class PokeDetails {
     constructor(id) {
         this.pokemonId = id;
         this.pokemon;
         this.species;
+        this.evolution;
     }
     
-    async init() {
-        // this.getPokemonData();
-        this.getPokemonDetails();
-        this.getPokemonSpecies();
-    }
-    
-    getPokemonData() {
-    // get Pokemon details then get Pokemon species then get pokemon type then render the page
-        this.getPokemonDetails()
-            .then(() => {
-                this.getPokemonSpecies()
-            })
-            // .then(() => {
-            //     this.getPokemonType()
-            // })
-            .finally(() => {
-                document.querySelector('main').innerHTML = this.renderPokemonDetails();
-            })
+    init() {
+        let i=0;
+        try {
+            this.getPokemonDetails();
+            this.getPokemonSpecies();
+            console.log (this.pokemon);
+            if (this.pokemon || this.species == undefined) {
+                i++;
+                throw 'Error fetching content - please reload the page and try again.';
+            }
+        } catch (e) {
+            if (i === 2) {
+                throw 'Error fetching content - please reload the page and try again.';
+            }
+            document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>${e}</p></div>`;
+        }
+            
+        // this.getPokemonDetails();
+        // this.getPokemonSpecies();
     }
 
     getPokemonDetails () {
         return getPokemon(this.pokemonId)
-            .then((pokemon) => {
-            
+            .then((pokemon) => {           
             this.pokemon = pokemon;
             console.log(this.pokemon);
         })
+    }
+    
+    getEvolution () {
+        return getEvolutionChain(this.species.evolution_chain.url)
+            .then((evolutionChain) => {
+                this.evolution = evolutionChain;
+                console.log(this.evolution);
+            })
     }
 
     getPokemonSpecies () {
@@ -43,7 +52,15 @@ export default class PokeDetails {
             console.log(this.species.flavor_text_entries)
         })
         .finally(() => {
+            this.getEvolution();
+            var titleName = `${this.pokemon.name}`;
+            titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                return letter.toUpperCase();
+            });
+            document.title = `Pokemon Details | ${titleName}`;
             document.querySelector('main').innerHTML = this.renderPokemonDetails();
+            document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
+            console.log("Pokemon Details Page Loaded");
         })
     }
 
@@ -93,13 +110,26 @@ export default class PokeDetails {
 
     getFirstMoves() {
         const moves = this.pokemon.moves;
-        const firstMoves = moves.slice(0, 5);
+        const firstMoves = moves.slice(0, 6);
         let movesList = '';
         firstMoves.forEach((move) => {
             move = move.move.name;
             movesList += `<li>${move}</li>`;
         });
         return movesList;
+    }
+
+    getMoreMoves() {
+        const moves = this.pokemon.moves;
+        const length = moves.length;
+        const moreMoves = moves.slice(6, (length - 1));
+        let movesList = '';
+        moreMoves.forEach((move) => {
+            move = move.move.name;
+            movesList += `<li>${move}</li>`;
+        });
+        document.getElementById('poke-card__moves_expand').classList.add('hidden');
+        document.querySelector('.poke-card__moves_expand_list').innerHTML = movesList;
     }
 
     renderPokemonDetails() {
@@ -123,12 +153,14 @@ export default class PokeDetails {
         const weight = (this.pokemon.weight * 0.220462).toFixed(2);
 
         const firstMoves = this.getFirstMoves();
-
         
+        console.log(this.evolution);
+               
         return `<section class="poke-card">
             <div class="poke-card__title">
                 <h1 class="poke-card__name">${this.pokemon.name}</h1>
-                <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">
+                <p class="poke-card__hp"><span class="poke-card__hp_text">HP</span> ${this.pokemon.stats[0].base_stat}</p>
+                <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">   
             </div>
             <div class="poke-card__image_container">
                 <img class="poke-card__image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
@@ -146,14 +178,17 @@ export default class PokeDetails {
             </div>
             <div class="poke-card__info">
                 <p class="poke-card__entry">${flavor_text}</p>
-                <h3 class="poke-card__moves_title">Moves:</h3>
+                <h4 class="poke-card__moves_title">Moves:</h4>
                 <ul class="poke-card__moves">
                     ${firstMoves}
                 </ul>
-                <button class="poke-card__moves_expand">See More</button>
+                <div class="button-container">
+                    <button id="poke-card__moves_expand">See More</button>
+                </div>
                 <ul class="poke-card__moves_expand_list">
                     <!-- expanded moves list -->
                 </ul>
+                <!-- <h4 class="poke-card__evolution_title">Evolves To: </h4> -->
             </div>
         </section>`
     }

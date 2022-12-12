@@ -18,6 +18,14 @@ export const getSpecies = (pokemon) => {
         });
     }
 
+export const getEvolutionChain = (evolutionChain) => {
+    return fetch(`${evolutionChain}`)
+        .then((response) => response.json())
+        .then((data) => {
+        return data;
+        });
+    }
+
 export const getKantoPokemonList = () => {
     return fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
         .then((response) => response.json())
