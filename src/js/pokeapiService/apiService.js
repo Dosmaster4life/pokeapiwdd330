@@ -18,6 +18,7 @@ export const getSpecies = (pokemon) => {
         });
     }
 
+
 export const getEvolutionChain = (evolutionChain) => {
     return fetch(`${evolutionChain}`)
         .then((response) => response.json())
@@ -26,6 +27,7 @@ export const getEvolutionChain = (evolutionChain) => {
         });
     }
 
+
 export const getKantoPokemonList = () => {
     return fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
         .then((response) => response.json())
@@ -33,9 +35,17 @@ export const getKantoPokemonList = () => {
         return data.results;
         });
     }
+// get all the pokemon from the Johto region
+export const getJohtoPokemonList = () => {
+    return fetch('https://pokeapi.co/api/v2/pokemon?limit=251&offset=151')
+        .then((response) => response.json())
+        .then((data) => {
+        return data.results;
+        });
+    }
 // get all the pokemon from the hoenn region
 export const getHoennPokemonList = () => {
-    return fetch('https://pokeapi.co/api/v2/pokemon?limit=386&offset=151')
+    return fetch('https://pokeapi.co/api/v2/pokemon?limit=386&offset=251')
         .then((response) => response.json())
         .then((data) => {
         return data.results;
@@ -90,6 +100,14 @@ export const getAllPokemon = () => {
         });
     }
 
+// get all pokemon by type
+export const getPokemonByType = (type) => {
+    return fetch(`https://pokeapi.co/api/v2/type/${type}`)
+        .then((response) => response.json())
+        .then((data) => {
+        return data.results;
+        });
+    }
 
 
 

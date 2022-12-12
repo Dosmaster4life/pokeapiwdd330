@@ -2,7 +2,7 @@
 
 // Path: src/js/card.js
 // init the gridView
-import { getAllPokemon } from "./pokeapiService/apiService";
+import { getAllPokemon, getKantoPokemonList, getJohtoPokemonList, getHoennPokemonList, getSinnohPokemonList, getUnovaPokemonList, getKalosPokemonList, getAlolaPokemonList, getGalarPokemonList } from "./pokeapiService/apiService";
 import {Card} from './card.js';
 
 export default class gridView {
@@ -13,7 +13,6 @@ export default class gridView {
         this.data;
         this.maxCard = 898;
         this.setRegion = false;
-        
     }
     // render should pass in the constructors from using an api call from the pokemon api
     createCard() {
@@ -143,7 +142,7 @@ export default class gridView {
       
         window.addEventListener('scroll', () => {
         
-                
+            
             // get the scroll position
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
             // if the scroll position is at the bottom of the page, load more cards
@@ -151,7 +150,7 @@ export default class gridView {
                 this.offset += 25;
                 this.getCards();
             }
-          
+            
           
         });
     
