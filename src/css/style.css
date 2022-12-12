@@ -12,31 +12,47 @@ body {
     max-width: 1200px;
 }
 /* Pokemon Detail Card */
+title {
+    text-transform: capitalize;
+}
 .poke-card {
     max-width: 70%;
     margin: 20px auto;
     background-color: #fee151;
     border-radius: 20px;
+    box-shadow: 2px 2px 15px 0 #DFDFDF;
 }
 .poke-card div {
     max-width: 90%;
     margin: 0 auto;
 }
 .poke-card__title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;  
     padding: 10px
 }
+
 .poke-card__name {
     text-transform: capitalize;
-    font-size: 30px;
+    font-size: 2.5em;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #000000;
+}
+.poke-card__hp {
+    justify-self: end;
+    align-self: end;
+    font-size: 2em;
+}
+.poke-card__hp_text {
+    font-size: .5em;
 }
 .poke-card__type {
     margin: 5px;
     max-width: 40px;
+    justify-self: center;
+    /* add drop shadow to circular image */
+    -webkit-filter: drop-shadow(0px 0px 3px #383838);
+    filter: drop-shadow(0px 0px 3px #383838);
 }
 .poke-card__image_container {
     max-width: 80%;
@@ -45,6 +61,7 @@ body {
     display: flex;
     justify-content: center;
     border-radius: 10px;
+    border: 2px solid #DFDFDF;
 }
 .poke-card__image {
     max-width: 100%;
@@ -98,14 +115,51 @@ body {
     padding-right: 40px;
 }
 
-.poke-card__moves {
-    margin-left: 20px;
+.poke-card__entry {
+    padding: 10px;
+    margin: 0 auto;
 }
-.poke-card__moves li {
+
+.poke-card__moves_title {
+    padding-left: 10px;
+}
+.poke-card__info {
+    padding-bottom: 20px;
+}
+.poke-card__moves, .poke-card__moves_expand_list {
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+.poke-card__moves li, .poke-card__moves_expand_list li {
     text-transform: capitalize;
     list-style-type: none;
 }
-
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+#poke-card__moves_expand {
+    background-color: #3c5aa6;
+    color: #FFFFFF;
+    padding: 5px;
+    border-radius: 5px;
+    border: #DFDFDF 1px solid;
+}
+#poke-card__moves_expand:hover {
+    background-color: #DFDFDF;
+    color: #000000;
+    border: #3c5aa6 1px solid;
+}
+.hidden {
+    display: none;
+}
+.poke-card__error {
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+}
 
 
 /*width of card should only fit around content*/

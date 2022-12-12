@@ -8,9 +8,28 @@ export default class PokeDetails {
     }
     
     async init() {
-        // this.getPokemonData();
-        this.getPokemonDetails();
-        this.getPokemonSpecies();
+        let i=0;
+        while (i < 2) {
+            try {
+                this.getPokemonDetails();
+                this.getPokemonSpecies();
+                console.log (this.pokemon);
+                if (this.pokemon && this.species !== undefined) {
+                    break;
+                } else {
+                    i++;
+                    throw 'Error fetching content - please reload the page and try again.';
+                }
+            } catch (e) {
+                if (i === 2) {
+                    throw 'Error fetching content - please reload the page and try again.';
+                }
+                document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>${e}</p></div>`;
+            }
+            
+        }
+        // this.getPokemonDetails();
+        // this.getPokemonSpecies();
     }
     
     getPokemonData() {
@@ -43,7 +62,13 @@ export default class PokeDetails {
             console.log(this.species.flavor_text_entries)
         })
         .finally(() => {
+            var titleName = `${this.pokemon.name}`;
+            titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                return letter.toUpperCase();
+            });
+            document.title += ` ${titleName}`;
             document.querySelector('main').innerHTML = this.renderPokemonDetails();
+            document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
         })
     }
 
@@ -93,13 +118,26 @@ export default class PokeDetails {
 
     getFirstMoves() {
         const moves = this.pokemon.moves;
-        const firstMoves = moves.slice(0, 5);
+        const firstMoves = moves.slice(0, 6);
         let movesList = '';
         firstMoves.forEach((move) => {
             move = move.move.name;
             movesList += `<li>${move}</li>`;
         });
         return movesList;
+    }
+
+    getMoreMoves() {
+        const moves = this.pokemon.moves;
+        const length = moves.length;
+        const moreMoves = moves.slice(6, (length - 1));
+        let movesList = '';
+        moreMoves.forEach((move) => {
+            move = move.move.name;
+            movesList += `<li>${move}</li>`;
+        });
+        document.getElementById('poke-card__moves_expand').classList.add('hidden');
+        document.querySelector('.poke-card__moves_expand_list').innerHTML = movesList;
     }
 
     renderPokemonDetails() {
@@ -128,7 +166,8 @@ export default class PokeDetails {
         return `<section class="poke-card">
             <div class="poke-card__title">
                 <h1 class="poke-card__name">${this.pokemon.name}</h1>
-                <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">
+                <p class="poke-card__hp"><span class="poke-card__hp_text">HP</span> ${this.pokemon.stats[0].base_stat}</p>
+                <img class="poke-card__type" src="../images/type-icons/Pokemon_Type_Icon_${type}.png" alt="${type} icon from https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864">   
             </div>
             <div class="poke-card__image_container">
                 <img class="poke-card__image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.pokemonId}.png" alt="Image of ${this.pokemon.name}">
@@ -146,11 +185,13 @@ export default class PokeDetails {
             </div>
             <div class="poke-card__info">
                 <p class="poke-card__entry">${flavor_text}</p>
-                <h3 class="poke-card__moves_title">Moves:</h3>
+                <h4 class="poke-card__moves_title">Moves:</h4>
                 <ul class="poke-card__moves">
                     ${firstMoves}
                 </ul>
-                <button class="poke-card__moves_expand">See More</button>
+                <div class="button-container">
+                    <button id="poke-card__moves_expand">See More</button>
+                </div>
                 <ul class="poke-card__moves_expand_list">
                     <!-- expanded moves list -->
                 </ul>
