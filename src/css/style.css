@@ -11,6 +11,9 @@ body {
     margin: 0 auto;
     max-width: 1200px;
 }
+
+
+
 /* Pokemon Detail Card */
 title {
     text-transform: capitalize;
@@ -87,7 +90,7 @@ title {
     padding: 5px 0 5px 10px;
     position: relative;
     font-size: 14px;
-    
+    z-index: 50;
     width: 100%;
 }
 .poke-card__stats:before {
@@ -98,6 +101,7 @@ title {
     width: 40px;
     height: 40px;
     border-bottom-left-radius: 50%;
+    z-index: -50;
     /* background-color: #CFCFCF; */
     box-shadow: 0 20px 0 0 #DFDFDF;
 }
@@ -155,26 +159,44 @@ title {
 .hidden {
     display: none;
 }
+.poke-card__evolution_title {
+    padding: 10px 0 0 10px;
+}
+
 .poke-card__error {
     text-align: center;
     font-size: 2em;
     padding: 20px;
 }
 
-
+/* Grid-View */
 /*width of card should only fit around content*/
 .card {
-    background-color: #fff;
+    background-color: #fee151;
     border: 1px solid #e6e6e6;
-    border-radius: 3px;
+    border-radius: 5px;
     box-shadow: 0 1px 2px rgba(0,0,0,.05);
     margin-bottom: 20px;
     margin-top: 20px;
     padding: 20px;
     width: fit-content;
-   
-
 }
+.card a {
+    text-decoration: none;
+    color: #000000;
+}
+.card h5 {
+    text-transform: capitalize;
+    text-align: center;
+}
+.card img {
+    background-color: #FFFFFF;
+    margin: 10px 0 0 0;
+    border-radius: 5px;
+    border: #DFDFDF 2px solid;
+}
+
+
 .grid-view {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -384,6 +406,21 @@ nav ul li ul li a:hover {
         height: 180px;
         visibility: visible;
         opacity: 1;
+    }
+
+
+
+    /* Responsive Card Styling */
+    .poke-card__hp {
+        font-size: 20px;
+        grid-column-start: 2;
+    }
+    .poke-card__stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    .poke-card__stats p {
+        align-self: left;
     }
 
 }

@@ -1,58 +1,48 @@
-import {getPokemon, getSpecies} from './pokeapiService/apiService.js';
+import {getPokemon, getSpecies, getEvolutionChain} from './pokeapiService/apiService.js';
 
 export default class PokeDetails {
     constructor(id) {
         this.pokemonId = id;
         this.pokemon;
         this.species;
+        this.evolution;
     }
     
-    async init() {
+    init() {
         let i=0;
-        while (i < 2) {
-            try {
-                this.getPokemonDetails();
-                this.getPokemonSpecies();
-                console.log (this.pokemon);
-                if (this.pokemon && this.species !== undefined) {
-                    break;
-                } else {
-                    i++;
-                    throw 'Error fetching content - please reload the page and try again.';
-                }
-            } catch (e) {
-                if (i === 2) {
-                    throw 'Error fetching content - please reload the page and try again.';
-                }
-                document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>${e}</p></div>`;
+        try {
+            this.getPokemonDetails();
+            this.getPokemonSpecies();
+            console.log (this.pokemon);
+            if (this.pokemon || this.species == undefined) {
+                i++;
+                throw 'Error fetching content - please reload the page and try again.';
             }
-            
+        } catch (e) {
+            if (i === 2) {
+                throw 'Error fetching content - please reload the page and try again.';
+            }
+            document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>${e}</p></div>`;
         }
+            
         // this.getPokemonDetails();
         // this.getPokemonSpecies();
-    }
-    
-    getPokemonData() {
-    // get Pokemon details then get Pokemon species then get pokemon type then render the page
-        this.getPokemonDetails()
-            .then(() => {
-                this.getPokemonSpecies()
-            })
-            // .then(() => {
-            //     this.getPokemonType()
-            // })
-            .finally(() => {
-                document.querySelector('main').innerHTML = this.renderPokemonDetails();
-            })
     }
 
     getPokemonDetails () {
         return getPokemon(this.pokemonId)
-            .then((pokemon) => {
-            
+            .then((pokemon) => {           
             this.pokemon = pokemon;
             console.log(this.pokemon);
         })
+    }
+    
+    getEvolution () {
+        return getEvolutionChain(this.species.evolution_chain.url)
+            .then((evolutionChain) => {
+                this.evolution = evolutionChain;
+                console.log(this.evolution);
+            })
     }
 
     getPokemonSpecies () {
@@ -62,13 +52,15 @@ export default class PokeDetails {
             console.log(this.species.flavor_text_entries)
         })
         .finally(() => {
+            this.getEvolution();
             var titleName = `${this.pokemon.name}`;
             titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
                 return letter.toUpperCase();
             });
-            document.title += ` ${titleName}`;
+            document.title = `Pokemon Details | ${titleName}`;
             document.querySelector('main').innerHTML = this.renderPokemonDetails();
             document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
+            console.log("Pokemon Details Page Loaded");
         })
     }
 
@@ -161,8 +153,9 @@ export default class PokeDetails {
         const weight = (this.pokemon.weight * 0.220462).toFixed(2);
 
         const firstMoves = this.getFirstMoves();
-
         
+        console.log(this.evolution);
+               
         return `<section class="poke-card">
             <div class="poke-card__title">
                 <h1 class="poke-card__name">${this.pokemon.name}</h1>
@@ -195,6 +188,7 @@ export default class PokeDetails {
                 <ul class="poke-card__moves_expand_list">
                     <!-- expanded moves list -->
                 </ul>
+                <!-- <h4 class="poke-card__evolution_title">Evolves To: </h4> -->
             </div>
         </section>`
     }
