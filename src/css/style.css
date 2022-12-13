@@ -19,7 +19,20 @@ a h5 {
 main a {
     color: #3c5aa6;
 }
-
+/* Search Button */
+#searchbutton {
+    background-color: #fee151;
+    color: #000000;
+    padding: 5px;
+    border-radius: 5px;
+    border: #DFDFDF 1px solid;
+    margin-left: 10px;
+}
+#searchbutton:hover {
+    background-color: #DFDFDF;
+    color: #000000;
+    border: #3c5aa6 1px solid;
+}
 
 /* Pokemon Detail Card */
 title {
