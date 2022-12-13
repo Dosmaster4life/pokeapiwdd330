@@ -9,7 +9,7 @@
 }
 body {
     position: relative;
-    top: 5em;
+    top: 6em;
     margin: 0 auto;
     max-width: 1200px;
 }
@@ -112,7 +112,7 @@ title {
     padding: 5px 0 5px 10px;
     position: relative;
     font-size: 14px;
-    z-index: 50;
+    z-index: 0;
     width: 100%;
 }
 .poke-card__stats:before {
@@ -235,6 +235,7 @@ header {
     top: 0;
     left: 0;
     background: #fff;
+    z-index: 1;
 }
 /* Logo */
 .logo {
@@ -329,7 +330,7 @@ nav ul li ul {
     visibility: hidden;
     opacity: 0;
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);
-    z-index: 10;
+    z-index: 60;
     transition: all 300ms ease;
 }
 nav ul li:hover ul {
@@ -471,6 +472,9 @@ nav ul li ul li a:hover {
     }
 }
 @media screen and (max-width: 445px) {
+    body {
+        top: 8em;
+    }
     .search {
         display: flex;
         flex-direction: row;
