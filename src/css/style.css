@@ -386,9 +386,13 @@ nav ul li ul li a:hover {
 @media screen and (max-width: 720px){
     .header__2 {
         padding: 0px;
+        flex-wrap: wrap;
     }
     .logo img {
         width: 100px;
+    }
+    .search {
+        margin-bottom: 10px;
     }
     .search input{
         transition: all 0.5 ease;
@@ -431,13 +435,24 @@ nav ul li ul li a:hover {
 
 
     /* Responsive Card Styling */
-    .poke-card__hp {
+    .poke-card__title {
+        max-width: 100%;
+        grid-template-columns: 2fr 1fr;
+        padding: 10px 0;
+    }
+    .poke-card__name {
         font-size: 20px;
-        grid-column-start: 2;
+        align-self: center;
+    }
+    .poke-card__hp {
+        display: none;
+    }
+    .poke-card__type {
+        max-width: 40px;
     }
     .poke-card__stats {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
     .poke-card__stats p {
         align-self: left;
