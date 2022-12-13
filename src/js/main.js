@@ -8,16 +8,16 @@ loadHeaderFooter();
 
 // run the api service function to get the list of pokemon
 getAllPokemon().then((pokemonList) => {
-console.log(pokemonList);
+
 
 });
 
  //get a pokemons data
  getPokemon('pikachu').then((pokemonStats) => {
-     console.log(pokemonStats);
+     
  });
 
 //get a pokemons species data
 getSpecies('25').then((pokemonStats) => {
-    console.log(pokemonStats);
+    
 });

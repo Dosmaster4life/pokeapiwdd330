@@ -22,14 +22,14 @@ export default class PokeDetails {
         
             // check if id is a number
             if (isNaN(id)) {
-                console.log(id)
+              
                 // if id is a string
                 // get the pokemon name from the url
                 const pokemonName = id;
                 // check if pokemon name is in the pokemonList array
                 // pokemonlist is an array of objects with a name property and url property, so we need to get the name property from each object in the array and compare it to the pokemonName
                 if ( pokemonList.some(pokemon => pokemon.name === pokemonName)) {
-                    console.log('pokemon name is in the pokemonList');
+                  
 
                     this.getData();
                
@@ -44,7 +44,7 @@ export default class PokeDetails {
                     document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>Pokemon not found, click the pokeball to go the home screen.</p></div>`;
                 }
             }else if(id >= 1 && id <= 898) {
-                    console.log('id is a number between 1 and 898');
+                   
                     this.getData();
                
                     // set timeout 500ms for this.getinfo
@@ -53,7 +53,7 @@ export default class PokeDetails {
                 }
                 else {
                     document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>Invalid pokemon id, click the pokeball to go to the home page.</p></div>`;
-                    console.log(id)
+                 
                    
                 }
             
@@ -98,7 +98,7 @@ export default class PokeDetails {
       //  document.title = `Pokemon Details | ${titleName}`;
         document.querySelector('main').innerHTML = this.renderPokemonDetails();
         document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
-        console.log("Pokemon Details Page Loaded");
+        
 
     }
     getData()  {
@@ -109,7 +109,7 @@ export default class PokeDetails {
          
 
           
-            console.log (this.pokemon);
+        
             if (this.pokemon || this.species == undefined) {
                 i++;
               //  throw 'Error fetching content - please reload the page and try again.';
@@ -130,7 +130,7 @@ export default class PokeDetails {
         return getPokemon(this.pokemonId)
             .then((pokemon) => {           
             this.pokemon = pokemon;
-            console.log(this.pokemon);
+          
         })
     }
     
@@ -138,15 +138,14 @@ export default class PokeDetails {
         return getEvolutionChain(this.species.evolution_chain.url)
             .then((evolutionChain) => {
                 this.evolution = evolutionChain;
-                console.log(this.evolution);
+             
             })
     }
 
     getPokemonSpecies () {
         getSpecies(this.pokemonId).then((species) => {
             this.species = species;
-            console.log(this.species);
-            console.log(this.species.flavor_text_entries)
+          
         })
         
     }
@@ -222,7 +221,7 @@ export default class PokeDetails {
 
     renderPokemonDetails() {
         // const flavor_text_entries = this.species.flavor_text_entries;
-        // console.log(flavor_text_entries);
+        
         const type = this.getPokemonType();
         //get english flavor text
         const flavor_text_entries = this.species.flavor_text_entries.filter((entry) => {
@@ -231,12 +230,12 @@ export default class PokeDetails {
         const flavor_text = flavor_text_entries[0].flavor_text;
 
         //const flavor_text = this.species.flavor_text_entries[0].flavor_text;
-        console.log(this.species.flavor_text_entries);
+   
         const genera = this.species.genera.filter((entry) => {
             return entry.language.name === 'en';
         });
         const genus = genera[0].genus;
-        console.log(genus);
+       
         const height = (this.pokemon.height * 3.93701).toFixed(2);
         const weight = (this.pokemon.weight * 0.220462).toFixed(2);
 
@@ -245,7 +244,7 @@ export default class PokeDetails {
         const id = this.pokemon.id
 
         
-        console.log(this.evolution);
+       
                
         return `<section class="poke-card">
             <div class="poke-card__title">
