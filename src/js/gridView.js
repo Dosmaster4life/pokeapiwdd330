@@ -13,6 +13,7 @@ export default class gridView {
         this.data;
         this.maxCard = 898;
         this.setRegion = false;
+    
     }
     // render should pass in the constructors from using an api call from the pokemon api
     createCard() {
@@ -85,6 +86,9 @@ export default class gridView {
                     this.cards.push(card);
     
                     // render the grid view
+                   
+                    
+                
                     document.getElementById('grid-view').innerHTML = this.createCard();
             }catch(e) {
 
@@ -96,6 +100,8 @@ export default class gridView {
         
     }
     render(region = 'all') {
+      
+      
         if(!this.setRegion) {
         switch(region) {
             case 'kanto':
@@ -128,6 +134,7 @@ export default class gridView {
                 break;
         }
         this.setRegion = true;
+        
     }
 
 

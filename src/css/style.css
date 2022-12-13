@@ -468,3 +468,19 @@ footer {
     background-color: #3c5aa6;
 
 }
+
+.grid-title {
+   margin: .5em;
+    text-align: center;
+    justify-content: center;
+    font-size: 48.5px;
+    color: #3c5aa6;
+    text-shadow: 2px 2px 1px black;
+
+    
+
+
+  
+   
+
+}
