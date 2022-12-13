@@ -1,5 +1,6 @@
 import {getPokemon, getSpecies, getEvolutionChain} from './pokeapiService/apiService.js';
-
+import {getAllPokemon} from './pokeapiService/apiService.js';
+import { getParam } from './utils.js';
 export default class PokeDetails {
     constructor(id) {
         this.pokemonId = id;
@@ -8,19 +9,114 @@ export default class PokeDetails {
         this.evolution;
     }
     
-    init() {
+  
+  async init() {
+    
+  
+    const data  = getAllPokemon().then((pokemonList) => {
+        // get id or pokemon name from url and check if it is a number or a string in pokemonList
+       // get the url
+         const url = window.location.href;
+            // get the id from the url which is all following the ?id=
+           let id = getParam('id');
+        
+            // check if id is a number
+            if (isNaN(id)) {
+                console.log(id)
+                // if id is a string
+                // get the pokemon name from the url
+                const pokemonName = id;
+                // check if pokemon name is in the pokemonList array
+                // pokemonlist is an array of objects with a name property and url property, so we need to get the name property from each object in the array and compare it to the pokemonName
+                if ( pokemonList.some(pokemon => pokemon.name === pokemonName)) {
+                    console.log('pokemon name is in the pokemonList');
+
+                    this.getData();
+               
+                    // set timeout 500ms for this.getinfo
+                   
+                        this.timeoutRun();
+                    
+                    // if pokemon name is in the pokemonList
+                    // if id is a number between 1 and 898
+                    
+                }else {
+                    document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>Pokemon not found, click the pokeball to go the home screen.</p></div>`;
+                }
+            }else if(id >= 1 && id <= 898) {
+                    console.log('id is a number between 1 and 898');
+                    this.getData();
+               
+                    // set timeout 500ms for this.getinfo
+                   
+                      this.timeoutRun();
+                }
+                else {
+                    document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>Invalid pokemon id, click the pokeball to go to the home page.</p></div>`;
+                    console.log(id)
+                   
+                }
+            
+            
+       
+        
+    
+
+            });
+           
+
+
+   
+
+
+  
+    
+      
+    }
+     timeoutRun(count = 0) {
+        
+        setTimeout(() => {
+            if(this.pokemon !== undefined & this.pokemon !== null & this.species !== undefined & this.species !== null) {
+                this.getinfo();
+                return
+            }else {
+                if(count > 5) {
+                    document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>Internal server error, refresh the page or try again later.</p></div>`;
+                }
+                this.timeoutRun(count + 1);
+                return
+            }
+           
+        },500);
+    }
+    
+    getinfo(){
+       // var titleName = `${this.pokemon.name}`;
+      //  titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+       //     return letter.toUpperCase();
+      //  });
+      //  document.title = `Pokemon Details | ${titleName}`;
+        document.querySelector('main').innerHTML = this.renderPokemonDetails();
+        document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
+        console.log("Pokemon Details Page Loaded");
+
+    }
+    getData()  {
         let i=0;
         try {
-            this.getPokemonDetails();
-            this.getPokemonSpecies();
+           this.getPokemonDetails();
+          this.getPokemonSpecies();
+         
+
+          
             console.log (this.pokemon);
             if (this.pokemon || this.species == undefined) {
                 i++;
-                throw 'Error fetching content - please reload the page and try again.';
+              //  throw 'Error fetching content - please reload the page and try again.';
             }
         } catch (e) {
             if (i === 2) {
-                throw 'Error fetching content - please reload the page and try again.';
+                //throw 'Error fetching content - please reload the page and try again.';
             }
             document.querySelector('main').innerHTML = `<div class="poke-card__error"><p>${e}</p></div>`;
         }
@@ -30,6 +126,7 @@ export default class PokeDetails {
     }
 
     getPokemonDetails () {
+        
         return getPokemon(this.pokemonId)
             .then((pokemon) => {           
             this.pokemon = pokemon;
@@ -51,18 +148,9 @@ export default class PokeDetails {
             console.log(this.species);
             console.log(this.species.flavor_text_entries)
         })
-        .finally(() => {
-            this.getEvolution();
-            var titleName = `${this.pokemon.name}`;
-            titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
-                return letter.toUpperCase();
-            });
-            document.title = `Pokemon Details | ${titleName}`;
-            document.querySelector('main').innerHTML = this.renderPokemonDetails();
-            document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
-            console.log("Pokemon Details Page Loaded");
-        })
+        
     }
+  
 
     getPokemonType () {
         let type = '';

@@ -38,7 +38,7 @@ export default class gridView {
         this.maxCard = 493;
     }
     setUnova() {
-        this.offset = 493;
+        this.offset = 494;
         this.maxCard = 649;
     }
     setKalos() {
