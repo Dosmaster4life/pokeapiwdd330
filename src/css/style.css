@@ -416,6 +416,7 @@ nav ul li ul li a:hover {
     }
     nav ul li ul {
         left: 100px;
+        width: 150px;
     }
     nav > ul > li:hover > ul {
         top: 50px;
@@ -427,7 +428,7 @@ nav ul li ul li a:hover {
         display: flex !important;
     }
     #check__menu:checked ~ nav > ul {
-        height: 180px;
+        height: 130px;
         visibility: visible;
         opacity: 1;
     }
@@ -459,10 +460,23 @@ nav ul li ul li a:hover {
     }
 
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 935px) {
     .search input {
         width: auto;
-        transition: all 0.5 ease;
+    }
+    #searchbutton {
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 445px) {
+    .search {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .search input {
+        margin-right: 10px;
+        width: 100%;
     }
 }
 
