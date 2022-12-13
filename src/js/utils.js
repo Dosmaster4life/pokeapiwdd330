@@ -29,7 +29,7 @@ export function renderWithTemplate(template, parent, data, callback) {
     } try {
         parent.appendChild(clone);
     } catch(e) {
-        console.log(e);
+      
     }
 }
 
