@@ -14,10 +14,7 @@ export default class PokeDetails {
     
   
     const data  = getAllPokemon().then((pokemonList) => {
-        // get id or pokemon name from url and check if it is a number or a string in pokemonList
-       // get the url
-         const url = window.location.href;
-            // get the id from the url which is all following the ?id=
+        // get the id from the url
            let id = getParam('id');
         
             // check if id is a number
