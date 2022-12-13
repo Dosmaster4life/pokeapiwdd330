@@ -8,6 +8,8 @@
     font-family: 'Telex', sans-serif;
 }
 body {
+    position: relative;
+    top: 5em;
     margin: 0 auto;
     max-width: 1200px;
 }
@@ -227,9 +229,9 @@ title {
     justify-items: center;
 }
 header {
-    /* width: 100%; */
+    width: 100%;
     padding: 0;
-    /* position: fixed; */
+    position: fixed;
     top: 0;
     left: 0;
     background: #fff;
