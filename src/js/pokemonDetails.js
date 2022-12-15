@@ -88,11 +88,11 @@ export default class PokeDetails {
     }
     
     getinfo(){
-       // var titleName = `${this.pokemon.name}`;
-      //  titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
-       //     return letter.toUpperCase();
-      //  });
-      //  document.title = `Pokemon Details | ${titleName}`;
+        var titleName = `${this.pokemon.name}`;
+        titleName = titleName.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+           return letter.toUpperCase();
+        });
+        document.title = `Pokemon Details | ${titleName}`;
         document.querySelector('main').innerHTML = this.renderPokemonDetails();
         document.getElementById('poke-card__moves_expand').addEventListener('click', this.getMoreMoves.bind(this));
         
